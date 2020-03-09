@@ -1,0 +1,21 @@
+.container {
+  height: 90vh;
+  width: 90vw;
+  margin: auto;
+}
+
+.calc-container {
+  margin: 60px auto 0 auto;
+  height: 30vmax;
+  width: 25vmax;
+  place-content: center;
+  display: grid;
+  grid: [old-start] 'old old old old old' 2fr [old-end]
+        [display-start] 'display display display display display' 1fr [display-end]
+        [btn1-start] 'seven eight nine divide clear' 1fr [btn1-end]
+        [btn2-start] 'four five six mult .' 1fr [btn2-end]
+        [btn3-start] 'one two three sub eq' 1fr [btn3-end]
+        [btn4-start] 'zero dot percent add eq' 1fr [btn4-end]
+        / 18% 18% 18% 18% 18%;
+  border-style: solid;
+}
