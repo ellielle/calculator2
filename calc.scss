@@ -10,15 +10,43 @@
   width: 25vmax;
   place-content: center;
   display: grid;
-  grid: [old-start] 'old old old old old' 2fr [old-end]
-        [display-start] 'display display display display display' 1fr [display-end]
+  grid: [display-start] 'display display display display display' 2fr
+                        'display display display display display' 1fr [display-end]
         [btn1-start] 'seven eight nine divide clear' 1fr [btn1-end]
         [btn2-start] 'four five six mult .' 1fr [btn2-end]
         [btn3-start] 'one two three sub eq' 1fr [btn3-end]
         [btn4-start] 'zero dot percent add eq' 1fr [btn4-end]
         / 18% 18% 18% 18% 18%;
-  border-style: solid;
+  border: 2px solid darkgrey;
+  border-radius: 4px;
 }
+
+/* Display */
+
+.display-active, .display-second, .display-top {
+  height: 33.3%;
+}
+
+.display {
+  grid-row: display;
+  grid-column: 1 / 6;
+  margin: 8px 2px 5px 2px;
+  font-size: 1.5em;
+  text-align: right;
+  overflow-wrap: anywhere;
+  resize: none;
+  border: 1px solid lightgrey;
+  border-radius: 7px;
+}
+
+/* Offset disabled coloring */
+
+textarea:disabled {
+  background: white;
+  color: black;
+}
+
+/* Buttons */
 
 .btn {
   place-self: center;
@@ -108,18 +136,6 @@
 .add {
   grid-row: btn4;
   grid-column: 4;
-}
-
-.display {
-  grid-row: display;
-  grid-column: 1 / 6;
-  margin: 0 2px;
-  font-size: 3em;
-  text-align: right;
-}
-
-.old {
-  grid-row: old;
 }
 
 .eq {
