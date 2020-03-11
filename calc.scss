@@ -25,6 +25,8 @@
 
 .display-active, .display-second, .display-top {
   height: 33.3%;
+  background: white;
+  padding: 0 4px;
 }
 
 .display {
@@ -33,9 +35,9 @@
   margin: 8px 2px 5px 2px;
   font-size: 1.5em;
   text-align: right;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   resize: none;
-  border: 1px solid lightgrey;
+  border: 2px solid lightgrey;
   border-radius: 7px;
 }
 
