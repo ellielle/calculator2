@@ -120,11 +120,11 @@ function badOperator(input) {
 function splitOperations(input) {
   input = input.match(operationSplit);
   input.forEach((operation) => {
-    let temp = operation.split(/(\d+)/).filter((element) => { return element !== '' });
-    if (temp[0].match(/\d+/)) {
-      activeTotal = operate[temp[1]](+temp[0], +temp[2])
-    } else if (temp[0].match(/[+-x/]/)) {
-      activeTotal = operate[temp[0]](+activeTotal, +temp[1]);
+    let tempTotal = operation.split(/(\d+)/).filter((element) => { return element !== '' });
+    if (tempTotal[0].match(/\d+/)) {
+      activeTotal = operate[tempTotal[1]](+tempTotal[0], +tempTotal[2])
+    } else if (tempTotal[0].match(/[+-x/]/)) {
+      activeTotal = operate[tempTotal[0]](+activeTotal, +tempTotal[1]);
     }
   });
   return activeTotal.toFixed(2).replace(/[.]00$/, '');
