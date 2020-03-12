@@ -13,7 +13,7 @@
   grid: [display-start] 'display display display display display' 2fr
                         'display display display display display' 1fr [display-end]
         [btn1-start] 'seven eight nine divide clear' 1fr [btn1-end]
-        [btn2-start] 'four five six mult .' 1fr [btn2-end]
+        [btn2-start] 'four five six mult back' 1fr [btn2-end]
         [btn3-start] 'one two three sub eq' 1fr [btn3-end]
         [btn4-start] 'zero dot percent add eq' 1fr [btn4-end]
         / 18% 18% 18% 18% 18%;
@@ -147,5 +147,10 @@ textarea:disabled {
 
 .clear {
   grid-row: btn1;
+  grid-column: 5;
+}
+
+.back {
+  grid-row: btn2;
   grid-column: 5;
 }

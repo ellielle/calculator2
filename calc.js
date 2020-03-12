@@ -5,6 +5,7 @@ const displayTop = document.querySelector('.display-top');
 let activeTotal = 0;
 const operatorIncludedMatch = /[/x+%-]/;
 const operatorBadMatch = [/[/x+%-]$/gm, /[^\w\s]{2,}/];
+const operationSplit = /(\d+[x/+-]\d+)|([x/+-]\d+)/g;
 
 window.onload = () => {
   displayActive.textContent = activeTotal;
@@ -29,16 +30,21 @@ const buttonsList = {
   'sub': '-',
   'add': '+',
   'eq': '=',
-  'clear': 'C'
+  'clear': 'C',
+  'back': '⌫'
 };
-
-// TODO instead of making new operators array, check against keys in operate obj
 
 const operate = {
   '+': (num1, num2) => { return num1 + num2 },
   '-': (num1, num2) => { return num1 - num2 },
   'x': (num1, num2) => { return num1 * num2 },
-  '/': (num1, num2) => { return (num1 / num2).toFixed(3) },
+  '/': (num1, num2) => {
+    if (num1 === 0 || num2 === 0) {
+      activeTotal = 0;
+      return 'Stahp';
+    }
+    return num1 / num2;
+  },
   '%': (num1, num2) => { return 'woops' }
 };
 
@@ -53,13 +59,17 @@ function setButtons() {
 }
 
 function setEvents(btn) {
-  if (!btn.textContent.match(/[=%C]/)) {
+  if (!btn.textContent.match(/[=%C⌫]/)) {
     btn.addEventListener('click', () => {
       addToDisplay(btn.textContent);
     })
   } else if (btn.textContent === 'C') {
     btn.addEventListener('click', () => {
       clearDisplay();
+    })
+  } else if (btn.textContent === '⌫') {
+    btn.addEventListener('click', () => {
+      backSpace();
     })
   } else {
     btn.addEventListener('click', () => {
@@ -108,10 +118,16 @@ function badOperator(input) {
 }
 
 function splitOperations(input) {
-  // TODO use unshift (beginning) on div and mult, and push (end) for sub and add for order of operations
-  // \d+[x%-\/+]\d+
-  // if next block starts with an operator ( [x%-\/+]\d+ ), only cut the operator and number after it
-  // make sure you can still just +3 on a cleared input and have it add 3 to 0, etc
+  input = input.match(operationSplit);
+  input.forEach((operation) => {
+    let temp = operation.split(/(\d+)/).filter((element) => { return element !== '' });
+    if (temp[0].match(/\d+/)) {
+      activeTotal = operate[temp[1]](+temp[0], +temp[2])
+    } else if (temp[0].match(/[+-x/]/)) {
+      activeTotal = operate[temp[0]](+activeTotal, +temp[1]);
+    }
+  });
+  return activeTotal.toFixed(2).replace(/[.]00$/, '');
 }
 
 function clearDisplay() {
@@ -119,4 +135,8 @@ function clearDisplay() {
   displaySecond.textContent = '';
   displayActive.textContent = '0';
   activeTotal = 0;
+}
+
+function backSpace() {
+  displayActive.textContent = displayActive.textContent.slice(0, -1).trimEnd();
 }
